@@ -10,5 +10,7 @@ Mindsweeper Game Source for JavaScript
   * 지뢰찾기 게임을 테스트할 수 있다.
 * style.css
   * 지뢰찾기 게임의 스타일을 지정
-* md2.ico
+* favicon.ico
   * 지뢰찾기 게임의 아이콘
+* Capture.PNG
+  * 지뢰찾기 게임 테스트 예시
