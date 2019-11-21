@@ -2,10 +2,10 @@
 Mindsweeper Game Source for JavaScript
 ---------------------------------------
 # Version List
-* Mindsweeper.js
-  * 지뢰찾기 게임의 초석 - CUI로 구동됨
-* Mindsweeper2.js
-  * 지뢰찾기 업그레이드. - CUI뿐만 아니라 GUI에서도 구동 가능함
-* Mindsweeper3.js
-  * 기존의 지뢰찾기 2차원을 3차원으로 구동 가능하게 함.
+* md2.js
+  * 지뢰찾기 게임의 가장 핵심이라 할 수 있는 코어.
+* game.js
+  * 지뢰찾기 게임 시스템을 GUI로 구동할 수 있게 만들어 줌.
+* index.html
+  * 지뢰찾기 게임을 테스트할 수 있다.
   
