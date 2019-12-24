@@ -4,6 +4,7 @@
 		<meta charset="utf-8">
 		<title>지뢰찾기 게임</title>
 		<link href="favicon.ico" rel="icon">
+<!--		일부 브라우저 및 사용자에게는 이 폰트가 표시되지 않는 버그가 있다. 아니, 한국어에는 궁서체로 나온다.-->
 		<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
 		<link href="style.css" rel="stylesheet">
 		<script src="md2.js"></script>
@@ -66,6 +67,8 @@
 		<div class="front" id="front">
 			<div class="front-wrap">
 				<!-- 난이도 선택 -->
+<!--				여기서 난이도를 선택하는데에 있어서 현재 사용자의 화면의 크기를 반영하면 좋음-->
+<!--				물론 사이즈 크기 선택도 크기에 반영하고 조절하면 좋다. 한번 해보자-->
 				<div class="select">
 					<h1>Welcome to Mindsweeper Game!</h1>
 					<div class="select-s">
@@ -92,15 +95,10 @@
 		</div>
 		<div class="back" id="back">
 			<div class="back-wrap">
-<!--
-				<div id="over" class="notice">
-					실패시 야인시대 폭8 영상 재생하고 다음으로 넘어간다.
-					<video></video>
-				</div>
--->
 				<div id="score" class="notice">
 					<h1>점수</h1>
 					<hr>
+<!--					승, 패, 무, 총합은 무의미하며, 대신 맵 크기, 지뢰 갯수 당 승패와 승률을 매기는 것이 더 나을 것-->
 					<p id="score_winlose">승: , 패: , 무: , 총합: </p>
 					<hr>
 					<div class="check">
@@ -110,19 +108,21 @@
 				<div id="lose" class="notice">
 					<h1>당신은 지뢰찾기를 하던 중 단 한번의 실수를 범했습니다.<br> 다음 생에 봅시다.</h1>
 					<p>일부 브라우저는 이 버튼이 작동되지 않을 수도 있습니다.</p>
-					<p>다시하시려면 &lt;F5&gt;를, 닫으시려면 &lt;Ctrl&gt; + W를 눌러주세요.</p>
+<!--					<p>다시하시려면 &lt;F5&gt;를, 닫으시려면 &lt;Ctrl&gt; + W를 눌러주세요.</p>-->
 					<div class="check">
-						<button class="confirm">환생하기</button>
-						<button class="cancel">그만하기</button>
+						<button class="confirm" onclick="resetGame();">환생하기</button>
+						<button class="cancel" onclick="stopGame();">그만하기</button>
 					</div>
 				</div>
 				<div id="win" class="notice">
 					<h1>당신은 지뢰찾기 임무를 완수하였습니다.<br> 당신은 영웅이 되셨습니다!</h1>
 					<p>일부 브라우저는 이 버튼이 작동되지 않을 수도 있습니다.</p>
-					<p>다시하시려면 &lt;F5&gt;를, 닫으시려면 &lt;Ctrl&gt; + W를 눌러주세요.</p>
+<!--					<p>다시하시려면 &lt;F5&gt;를, 닫으시려면 &lt;Ctrl&gt; + W를 눌러주세요.</p>-->
 					<div class="check">
-						<button class="confirm">추가 임무 완수하기</button>
-						<button class="cancel">은퇴하기</button>
+<!--						추가 임무 완수나 다시하기 누르면 다시 세팅하고 본래의 메인으로 돌아오게 만들어보자-->
+						<button class="confirm" onclick="resetGame();">추가 임무 완수하기</button>
+						<button class="cancel" onclick="stopGame();">은퇴하기</button>
+<!--						이건 노답-->
 					</div>
 				</div>
 			</div>
