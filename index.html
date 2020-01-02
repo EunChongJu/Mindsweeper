@@ -14,10 +14,11 @@
 		<div class="wrap" id="wrap">
 			<div class="menu">
 				<div id="gameName">
-					<p>Mindsweeper 2.0 for Web --version: web</p>
+					<p>Mindsweeper 2.1</p>
 				</div>
 				<div id="gameOut">
-					<button id="gameQuit" onclick="showGameOver();">게임 그만하기</button>
+<!--					이 버튼을 좀더 세련되게 바꿔주셈-->
+					<button id="gameQuit" onclick="showGameOver();">&times;</button>
 				</div>
 			</div>
 			<div class="gameFrame">
@@ -77,12 +78,17 @@
 								<button class="select-lv" onclick="gameLevel(1);">Easy</button>
 								<button class="select-lv" onclick="gameLevel(2);">Middium</button>
 								<button class="select-lv" onclick="gameLevel(3);">Hard</button>
+								<button class="select-lv" onclick="gameLevel(4);">Max Size</button>
 							</label>
 						</div>
 						<div class="select-c">
-							<label>Width: <input type="number" id="width" value="3" min="3" max="36" required></label>
-							<label>Height: <input type="number" id="height" value="3" min="3" max="16" required></label>
-							<label>Number: <input type="number" id="number" value="1" required></label>
+							<label>Width: <input type="number" id="width" value="10" min="6" max="36" required></label>
+							<label>Height: <input type="number" id="height" value="10" min="6" max="16" required></label>
+							<label>Number: <input type="number" id="number" value="1" min="1" required></label>
+							<label>
+								<button class="select-mn" onclick="setNumMin();">Min Num</button>
+								<button class="select-mn" onclick="setNumMax();">Max Num</button>
+							</label>
 							<button class="select-st" onclick="clickStartBtn();">Start!</button>
 						</div>
 					</div>

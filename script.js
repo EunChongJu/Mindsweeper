@@ -42,7 +42,7 @@
 
 //// 알고리즘에 기반이 되는 핵심 함수들
 
-var md2 = null;	// 생성자. 비효율을 막기 위해 startApp()이 실행될 때 만 생성하도록 함.
+var md2 = null;	// 생성자. 비효율을 막기 위해 startApp()이 실행될 때 만 생성하도록 함. 다시 시작할 때 새로운 생성자로 덮어쓴다.
 var clickFirst = false;	// 처음 클릭했었나? -> 클릭 한번 이상 했다면 true로 바뀐다.
 var pointWin = false;	// 이 상태로 게임오버를 실행하면 패로 등록되지만, true로 하면 승리한다.
 var flagMap = null;	// 플래그 맵 : 깃발 꽂고 빼고 물음표 배치하는 것을 저장하는 맵이다.
@@ -291,6 +291,12 @@ function sizeofLevel(lv) {
 		case 3:
 			attr = {w: 30, h: 16, n: 99};
 			break;
+		case 4:
+			var r = maxAcceptCell(40);
+			var num = recommendToMineNum(r.dx, r.dy);
+			
+			attr = {w: r.dx, h: r.dy, n: num};
+			break;
 	}
 	return attr;
 }
@@ -474,16 +480,83 @@ function setResultStorage(code) {
 	return result;
 }
 
+// 스토리지 값 불러오기
 function getStorage() {
 	var total = localStorage.getItem('total');
 	var win = localStorage.getItem('win');
 	var lose = localStorage.getItem('lose');
 	return {win: win, lose: lose, total: total};
 }
-
+// 스토리지 값 저장하기
 function setStorage(v) {
 	localStorage.setItem('win', v.win);
 	localStorage.setItem('lose', v.lose);
 	localStorage.setItem('total', v.total);
 }
+
+
+
+// 지뢰 최소 배치 가능 갯수 설정
+function setNumMin() {
+	var w = getMapWidth();
+	var h = getMapHeight();
+	
+	document.getElementById('number').value = minAcceptMine(w,h);
+}
+
+// 지뢰 최대 배치 가능 갯수 설정
+function setNumMax() {
+	var w = getMapWidth();
+	var h = getMapHeight();
+	
+	document.getElementById('number').value = maxAcceptMine(w,h);
+}
+
+
+// 맵의 w * h를 반환 : 맵의 셀 갯수를 반환
+function getMapCell() {
+	return getMapWidth() * getMapHeight();
+}
+// 맵의 너비 값 반환
+function getMapWidth() {
+	return document.getElementById('width').value;
+}
+// 맵의 높이 값 반환
+function getMapHeight() {
+	return document.getElementById('height').value;
+}
+
+
+// 지뢰 배치할 갯수를 추천해주는 함수 : 여기서 최솟값과 최댓값의 조화 평균값으로 리턴된다.
+function recommendToMineNum(w, h) {
+	var min = minAcceptMine(w, h);
+	var max = maxAcceptMine(w, h);
+	
+	return parseInt((2 * min * max) / (min + max)) + 1;
+}
+
+// 맵의 크기 내에서 배치할 수 있는 지뢰의 최소값
+function minAcceptMine(w, h) {
+	return (w * h) - (w + h) + 1;
+}
+// 맵의 크기 내에서 배치할 수 있는 지뢰의 최대값
+function maxAcceptMine(w, h) {
+	return (w * h) - 25;
+}
+
+function maxAcceptCell(r) {
+	var maxSize = maxSizeMapInWindow();
+	
+	var dx = parseInt(maxSize.w / r) - 1;
+	var dy = parseInt((maxSize.h - 40) / r) - 1;
+	
+	return {dx: dx, dy: dy};
+}
+
+function maxSizeMapInWindow() {
+	var width = window.innerWidth;
+	var height = window.innerHeight;
+	return {w: width, h: height};
+}
+
 
