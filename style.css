@@ -39,6 +39,8 @@ body, html {
 .wrap{
 	width:100%;
 }
+
+/*
 .menu{
 	position:fixed;
 	width:100%;
@@ -80,6 +82,7 @@ body, html {
 	font-size:1.2em;
 	color:#FFF;
 }
+*/
 
 .gameFrame{
 	position:fixed;
@@ -92,12 +95,15 @@ body, html {
 }
 .gt{
 	display:block;
+	position:fixed;
+	top:50%;
+	left:50%;
 	width:100%;
 	padding:0;
 	margin:auto;
-	margin-top:10%;
 	text-align:center;
 	z-index:10;
+	transform:translate(-50%,-50%);
 }
 .gt-row{
 	margin:0;

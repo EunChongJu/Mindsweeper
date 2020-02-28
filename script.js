@@ -173,6 +173,7 @@ function clickLeft(x,y) {
 		
 		if (value == -1) {
 			// 꾹ㅡ 어..? 방금 뭐 누른..거야?
+			disabledTrueAll()
 			touchMine(x,y);
 		}
 		else if (value == 0) {
@@ -494,7 +495,18 @@ function setStorage(v) {
 	localStorage.setItem('total', v.total);
 }
 
-
+// 모든 셀을 클릭할 수 없도록 한다. (지뢰가 터지거나 다 찾았을 때에도 여전히 작동되는 버그를 수정)
+function disabledTrueAll() {
+	var attr = setMapAttr();
+	for (var x = 0; x < attr.width; x++) {
+		for (var y = 0; y < attr.height; y++) {
+			var pop = 'c' + fitToNumUnit(x, 2) + '' + fitToNumUnit(y, 2);
+			var cellId = document.getElementById(pop);
+			
+			cellId.disabled = true;
+		}
+	}
+}
 
 // 지뢰 최소 배치 가능 갯수 설정
 function setNumMin() {
@@ -537,7 +549,8 @@ function recommendToMineNum(w, h) {
 
 // 맵의 크기 내에서 배치할 수 있는 지뢰의 최소값
 function minAcceptMine(w, h) {
-	return (w * h) - (w + h) + 1;
+	var min = (Math.floor(Math.sqrt(w*h)));
+	return min;
 }
 // 맵의 크기 내에서 배치할 수 있는 지뢰의 최대값
 function maxAcceptMine(w, h) {
@@ -557,6 +570,13 @@ function maxSizeMapInWindow() {
 	var width = window.innerWidth;
 	var height = window.innerHeight;
 	return {w: width, h: height};
+}
+
+
+
+
+function resetGame() {
+	location.reload();
 }
 
 
