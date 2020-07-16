@@ -150,9 +150,6 @@ var MD = function() {
 			}
 		}
 	};
-	
-	
-	
 }
 
 
