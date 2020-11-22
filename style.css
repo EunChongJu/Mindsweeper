@@ -13,7 +13,7 @@ a{
 }
 
 body, html {
-	
+	border:0;
 }
 
 /*
@@ -276,3 +276,6 @@ The color of the cell changes depending on the value.*/
 .check>.cancel:hover{
 	background: #da190b;
 }
+
+
+

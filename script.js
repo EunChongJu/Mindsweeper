@@ -508,6 +508,15 @@ function disabledTrueAll() {
 	}
 }
 
+
+
+
+
+
+
+
+
+
 // 지뢰 최소 배치 가능 갯수 설정
 function setNumMin() {
 	var w = getMapWidth();
@@ -557,6 +566,7 @@ function maxAcceptMine(w, h) {
 	return (w * h) - 25;
 }
 
+// you have a check to border error debuging
 function maxAcceptCell(r) {
 	var maxSize = maxSizeMapInWindow();
 	
@@ -566,10 +576,21 @@ function maxAcceptCell(r) {
 	return {dx: dx, dy: dy};
 }
 
+function getWindowWidth() {
+	return window.innerWidth;
+}
+function getWindowHeight() {
+	return window.innerHeight;
+}
+
 function maxSizeMapInWindow() {
-	var width = window.innerWidth;
-	var height = window.innerHeight;
+	var width = oneDown(getWindowWidth());
+	var height = oneDown(getWindowHeight());
 	return {w: width, h: height};
+}
+
+function oneDown(i) {
+	return (parseInt(i/10)*10);
 }
 
 
