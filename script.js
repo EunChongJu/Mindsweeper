@@ -47,6 +47,7 @@ var clickFirst = false;	// 처음 클릭했었나? -> 클릭 한번 이상 했�
 var pointWin = false;	// 이 상태로 게임오버를 실행하면 패로 등록되지만, true로 하면 승리한다.
 var flagMap = null;	// 플래그 맵 : 깃발 꽂고 빼고 물음표 배치하는 것을 저장하는 맵이다.
 var flagNum = 0;
+var mineNum = 0;
 
 // onload를 통해 맨 처음 실행되는 함수
 function startApp() {
@@ -71,6 +72,10 @@ function clickStartBtn() {
 	
 	// 디스플레이에 보여줄 맵을 만들어 띄운다.
 	showGameMain(attr.width, attr.height);
+	
+	// 디스플레이에 표시될 깃발 갯수를 설정한다.
+	mineNum = attr.number;
+	showFlagNum();
 	
 	// 모든 셀을 한꺼번에 이벤트리스너를 관리
 	var allMapCell = document.querySelector("#gt");
@@ -250,7 +255,7 @@ function checkWin(num) {
 		}, 3000);
 	}
 	else {
-		console.log("틀림"+ matchNum +" " + num);
+		console.log("틀림"+ matchNum +" " + num);		// 심각한 버그가 있음!
 	}
 }
 
@@ -390,8 +395,16 @@ function nullExpansion(x,y) {
 					
 					var id = "c" + fitToNumUnit(posX, 2) + fitToNumUnit(posY, 2);
 					var cell = document.getElementById(id);
+					
+					if (flagAt(posX,posY)) {
+						flagMap[posX][posY] = 0;
+						cell.innerHTML = '';
+						flagNum--;
+						showFlagNum();
+					}
+					
 					var value = md2.map[posX][posY];
-
+					
 					if (value > 0) {
 						cell.innerHTML = '' + value;
 						showNumber(cell, value);
@@ -458,6 +471,7 @@ function showResult() {
 	document.getElementById('score_winlose').innerHTML = print;
 }
 
+
 // 기록을 로컬 스토리지에 저장하면서 기록을 리턴한다.
 function setResultStorage(code) {
 	var result = {win: 0, lose: 0, total: 0};
@@ -510,11 +524,11 @@ function disabledTrueAll() {
 
 
 
-
-
-
-
-
+// 남은 깃발 갯수를 표시
+function showFlagNum() {
+	var flags = '🚩 ' + (mineNum - flagNum);
+	var displayflagNum = document.getElementById('flagNum').innerHTML = flags;
+}
 
 
 // 지뢰 최소 배치 가능 갯수 설정
