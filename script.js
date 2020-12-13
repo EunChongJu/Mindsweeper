@@ -70,13 +70,15 @@ var md2 = null;	// 생성자. 비효율을 막기 위해 startApp()이 실행될
 var clickFirst = false;	// 처음 클릭했었나? -> 클릭 한번 이상 했다면 true로 바뀐다.
 var pointWin = false;	// 이 상태로 게임오버를 실행하면 패로 등록되지만, true로 하면 승리한다.
 var flagMap = null;	// 플래그 맵 : 깃발 꽂고 빼고 물음표 배치하는 것을 저장하는 맵이다.
-var flagNum = 0;
-var mineNum = 0;
+var flagNum = 0;	// 플래그넘 : 현재 꽂은 플래그의 갯수 현황을 저장
+var mineNum = 0;	// 마인넘 : 현재 지뢰의 갯수를 기억
+var history = null;	// 히스토리맵 : 보드 맵과 플래그 맵의 현황은 물론 셀 오픈 순서를 기억한다.
+
 
 // onload를 통해 맨 처음 실행되는 함수
 function startApp() {
 	md2 = new MD();
-	
+	history = new HistoryMap();
 	document.getElementById('front').style.display = 'block';
 }
 
@@ -612,4 +614,46 @@ function resetGame() {
 	location.reload();
 }
 
+
+
+// HistoryMap - 지뢰 보드 맵과 플래그 맵 현황, 클릭 순서 등을 저장하여 게임 오버 후 되돌아보기 기능에 쓰인다.
+var HistoryMap = function() {
+	var mineMap = null;
+	var flagMap = null;
+	var history = [];
+	
+	this.saveMineMap = function(mine) {
+		mineMap = mine;
+		flagMap = new Array(mineMap.length);
+		
+		for (var i = 0; i < mineMap.length; i++) {
+			flagMap[i] = new Array(mineMap[i]);
+		}
+	};
+	
+	// 우클릭 시 히스토리에 
+	this.updateFlag = function(x, y) {
+		if (flagMap[x][y] == 2) {
+			flagMap[x][y] = 0;
+		}
+		else {
+			flagMap[x][y]++;
+		}
+	};
+	
+	// 좌클릭 또는 우클릭 시 히스토리에 좌표가 추가됨 : 좌표 x, y와 좌클릭 또는 우클릭을 구분하는 lr
+	this.updateHistory = function(x, y, lr) {
+		history.push({
+			x: x,
+			y: y,
+			lr: lr
+		});
+	};
+	
+	// 게임 오버 후 처리
+	this.getHistory = function() {
+		return history;
+	};
+	
+};
 
